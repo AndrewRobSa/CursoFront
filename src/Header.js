@@ -1,14 +1,14 @@
 import React from "react";
 import "./App.css";
 import Clock from "./Clock.js";
-import PropTypes from 'prop-types';
+import SearchForm from "./SearchForm.js";
+import PropTypes from "prop-types";
 
 export default class Header extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      searchVisible: false
+      searchVisible: false,
     };
   }
 
@@ -19,27 +19,26 @@ export default class Header extends React.Component {
     });
   }
 
+  handleSearch(val) {
+    // Called when the imput changes value
+    this.props.onSearch(val);
+  }
+
   render() {
-    // Classes to add to the <input /> element
-    let searchInputClasses = ["searchInput"];
-
-    // Update the class array if the state is visible
-    if (this.state.searchVisible) {
-      searchInputClasses.push("active");
-    }
-
     return (
       <div className="header">
         <div className="header-section left">
-          <Clock className="clock"/>
+          <Clock className="clock" />
         </div>
+
         <span className="title">{this.props.title}</span>
+
         <div className="header-section right">
-          <input
-            type="text"
-            className={searchInputClasses.join(" ")}
-            placeholder="Search ..."
+          <SearchForm
+            searchVisible={this.state.searchVisible}
+            onSubmit={this.handleSearch.bind(this)}
           />
+
           <div onClick={this.showSearch.bind(this)}>
             <i className="bi bi-search"></i>
           </div>
@@ -50,9 +49,10 @@ export default class Header extends React.Component {
 }
 
 Header.propTypes = {
-  title: PropTypes.string
-}
+  title: PropTypes.string,
+  onSearch: PropTypes.func
+};
 
 Header.defaultProps = {
-  title: 'TITULO'
+  title: "TITULO"
 };

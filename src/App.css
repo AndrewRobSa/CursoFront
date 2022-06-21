@@ -53,6 +53,12 @@ body{
   font-size: 2rem;
   margin: auto auto;
   display: none;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+
+.form-search {
+  display: flex;
 }
 
 .bi {

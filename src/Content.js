@@ -1,5 +1,10 @@
 import React from "react";
 import ActivityItem from "./ActivityItem";
+import PropTypes from "prop-types";
+
+const rootUrl = `https://api.github.com`
+const endpoint = `/users/fullstackreact/events`
+
 
 export default class Content extends React.Component {
   constructor(props) {
@@ -29,7 +34,16 @@ export default class Content extends React.Component {
   componentWillReceiveProps(nextProps) {
     // Check to see if the requestRefresh prop has changed
     if (nextProps.requestRefresh !== this.props.requestRefresh) {
-      this.setState({loading: true}, this.updateData);
+      if(nextProps.requestRefresh === true) {
+        console.log("Refrescando... Calling UpdateData()");
+        this.setState({loading: true}, this.updateData);
+      }
+
+    }else {
+      if (nextProps.searchFilter !== this.props.searchFilter) {
+        console.log("Nueva Busqueda... Calling UpdateData(): " + nextProps.searchFilter);
+        this.setState({loading: true}, this.updateData);
+      }
     }
   }
 
@@ -45,3 +59,10 @@ export default class Content extends React.Component {
     );
   }
 }
+
+Content.propTypes = {
+  onComponentRefresh: PropTypes.func,
+  requestRefresh: PropTypes.bool,
+  fetchData: PropTypes.node,
+  searchFilter: PropTypes.string
+};

@@ -7,7 +7,14 @@ import Content from "./Content.js";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {refreshing: false};
+    this.state = {refreshing: false, searchFilter: ""};
+  }
+
+  handleSearch(val) {
+    // handle search here
+    this.setState({
+      searchFilter: val
+    });
   }
 
   // Bound to the refresh button
@@ -20,16 +27,28 @@ class App extends React.Component {
     this.setState({refreshing: false});
   }
 
+  // Method built for demostration propuses
+  onMouseMove(evt) {
+    console.log("mouse move!!!");
+    const ele = document.querySelector(".panel");
+    ele.innerHTML = "Move your mouse!";
+    const {screenX, screenY} = evt;
+    ele.innerHTML = `<div>
+      Mouse is at: X: ${screenX}, Y: ${screenY}
+      </div>`;
+  }
+
   render() {
     return (
       <div className="notificationsFrame">
-        <div className="panel">{/* content goes here */}</div>
-        <Header title="Timeline" />
+        <Header title="Timeline" onSearch={this.handleSearch.bind(this)} />
         <Content
           onComponentRefresh={this.onComponentRefresh.bind(this)}
-          requestRefresh={this.refreshing}
+          requestRefresh={this.state.refreshing}
           fetchData={this.fetchEvents}
+          searchFilter={this.state.searchFilter}
         />
+        <div className="panel">{/* content goes here */}</div>
         <footer>
           <button onClick={this.refresh.bind(this)} className="butonRefresh">
             <i className="fa fa-refresh" />
