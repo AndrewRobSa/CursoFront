@@ -2,8 +2,8 @@ import React from "react";
 import ActivityItem from "./ActivityItem";
 import PropTypes from "prop-types";
 
-const rootUrl = `https://api.github.com`
-const endpoint = `/users/fullstackreact/events`
+//const rootUrl = `https://api.github.com`
+//const endpoint = `/users/fullstackreact/events`
 
 
 export default class Content extends React.Component {

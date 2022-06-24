@@ -28,7 +28,7 @@ export default class Header extends React.Component {
     return (
       <div className="header">
         <div className="header-section left">
-          <Clock className="clock" />
+          <Clock format="h:m:s p" />
         </div>
 
         <span className="title">{this.props.title}</span>
